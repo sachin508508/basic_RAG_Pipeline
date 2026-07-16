@@ -9,6 +9,8 @@ def retrieve():
         vector_store()
     db = vector_load()
     retrieved_chunks = db.as_retriever(search_kwargs={"k":3})
+    # final_context = format_chunk(retrieved_chunks)
     return retrieved_chunks
 
-
+def format_chunk(chunks):
+    return "\n\n".join(chunk.page_content for chunk in chunks)
