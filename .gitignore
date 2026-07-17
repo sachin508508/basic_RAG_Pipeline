@@ -5,3 +5,4 @@ __pycache__/
 chroma_db/
 .vscode/
 .DS_Store
+code_taker.py

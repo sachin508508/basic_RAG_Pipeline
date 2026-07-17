@@ -1,4 +1,5 @@
 from langchain_core.prompts import ChatPromptTemplate
+
 system_prompt = "You are an helpful assistant. Answer the query strictly using the provided context. "\
 "Rules:"\
 "1. Rely only on clear facts in the context. Do not extrapolate or use outside knowledge."\

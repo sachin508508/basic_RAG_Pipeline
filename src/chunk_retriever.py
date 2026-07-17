@@ -1,6 +1,6 @@
 from load_vector_db import vector_load
 from build_vector_db import vector_store
-from config import CHROMA_DB, file_path
+from config import CHROMA_DB
 from pathlib import Path
 
 def retrieve():
