@@ -7,12 +7,13 @@ load_dotenv()
 
 CHROMA_DB="./chroma_db/"
 FILE_PATH="./data/data_file.pdf"
-chunk_size=1000
-chunk_overlap=200
+CHUNK_SIZE=1000
+CHUNK_OVERLAP=200
 gemini_model="gemini-3.1-flash-lite"
 deepseek_model="deepseek-chat"
 deepseek_url="https://api.deepseek.com"
 deepseek_api_key=os.getenv("DEEPSEEK_API_KEY")
-embedding_model="all-MiniLM-L6-v2"
-temperature=0.4
-max_tokens=1024
+EMBEDDING_MODEL="all-MiniLM-L6-v2"
+TEMPERATURE=0.4
+TOP_K=3
+MAX_TOKENS=1024
