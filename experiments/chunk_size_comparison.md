@@ -167,6 +167,32 @@ The same PDF, evaluation questions, chunk overlap, and `TOP_K` value were used i
 
 ---
 
+## Evaluation Methodology
+
+Each of the 10 evaluation questions was evaluated using two separate metrics.
+
+### Retrieved Context Relevance
+
+For each question, the retrieved context was evaluated on a 3-point scale:
+
+- 3 points: Highly relevant context
+- 2 points: Partially relevant context
+- 1 point: Irrelevant or insufficient context
+
+The maximum possible score was:
+
+10 questions × 3 points = 30 points
+
+### Final Answer Quality
+
+For Final Answer Quality, the evaluation is based on how well the model is performed with the given the context and the query. The generated answer was evaluated on a 3-point scale:
+
+- 3 points: Correct and complete
+- 2 points: Partially correct or incomplete
+- 1 point: Incorrect or unsupported
+
+The maximum possible score was also 30 points.
+
 # Experiment A: 500-Character Chunks
 
 ## Configuration
@@ -183,7 +209,6 @@ TOP_K = 3
 | ---------------------- | ----- |
 | Total Pages            | 24    |
 | Total Chunks           | 176   |
-| Total Retrieved Chunks | 3     |
 
 ## Results
 
@@ -217,7 +242,6 @@ TOP_K = 3
 | ---------------------- | ----- |
 | Total Pages            | 24    |
 | Total Chunks           | 76    |
-| Total Retrieved Chunks | 3     |
 
 ## Results
 
