@@ -1,0 +1,9 @@
+Experiment Overview,
+Experiment,Details
+Objective,Compare how chunk size affects retrieval quality and final answer quality in a RAG pipeline.
+Variable Changed,Chunk size: 500 vs 1000 characters.
+Fixed Parameters,PDF: 24 pages | Chunk overlap: 200 | Top K: 3 | Embedding: all-MiniLM-L6-v2 | Temperature: 0.4
+Configuration 1,500-character chunks → 176 total chunks.
+Configuration 2,1000-character chunks → 76 total chunks.
+Evaluation Method,10 questions evaluated for each chunk-size configuration using retrieval quality and answer quality.
+Overall Observation,"Both configurations produced strong final-answer quality. The 500-character configuration created more granular chunks, while the 1000-character configuration reduced the total number of chunks. The observed difference in final-answer quality was small."

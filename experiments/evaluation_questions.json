@@ -1,0 +1,52 @@
+[
+    {
+        "id": 1,
+        "question": "How many open-source AI agent framework repositories were analyzed in the study?",
+        "expected_answer": "15 repositories."
+    },
+    {
+        "id": 2,
+        "question": "What was the total number of unique human code contributors identified across all 15 repositories after filtering out bot accounts?",
+        "expected_answer": "12,594 unique human code contributors."
+    },
+    {
+        "id": 3,
+        "question": "What is the contributor density ratio, and how is it calculated?",
+        "expected_answer": "The contributor density ratio is the number of total code contributors per 1,000 GitHub stars. It's calculation is not mentioned in the provided context."
+    },
+    {
+        "id": 4,
+        "question": "Why does the study argue that GitHub star counts alone are not a reliable measure of actual adoption?",
+        "expected_answer": "Star counts primarily measure visibility or awareness and may be affected by hype cycles, launch effects, anomalous activity, or coordinated starring. They do not necessarily represent active engagement or actual code contribution."
+    },
+    {
+        "id": 5,
+        "question": "Which framework had the highest contributor density ratio, and how does this relate to the framework's position in the awareness-versus-adoption analysis?",
+        "expected_answer": "Pydantic AI had the highest contributor density ratio at 42.3 contributors per 1,000 stars. It was classified as a Quiet Compounder, meaning it had relatively lower awareness but comparatively strong contributor engagement."
+    },
+    {
+        "id": 6,
+        "question": "Why is LangChain considered a shared infrastructure or bridge within the open-source AI agent framework ecosystem?",
+        "expected_answer": "LangChain attracted approximately 82.5% of cross-ecosystem contributors and appeared in many cross-framework contributor pairings. Its composable components are also used by or integrated with other frameworks, allowing contributors to engage across multiple ecosystems."
+    },
+    {
+        "id": 7,
+        "question": "What does the study reveal about contributor retention during the first 30 to 90 days after a contributor's initial contribution?",
+        "expected_answer": "The steepest decline in contributor retention occurs during the first 30 days. Retention may increase somewhat by 60 or 90 days as contributors have more time to return, but it generally stabilizes after approximately 90 days."
+    },
+    {
+        "id": 8,
+        "question": "AutoGPT had very high visibility but relatively low contributor retention. What does this comparison suggest about the difference between popularity and sustained adoption?",
+        "expected_answer": "High visibility or popularity does not necessarily lead to sustained community engagement. AutoGPT attracted significant attention and stars, but its contributor retention was relatively low, showing that initial popularity and long-term adoption are different measures."
+    },
+    {
+        "id": 9,
+        "question": "Which framework had the lowest contributor density ratio in the dataset, and what was its ratio?",
+        "expected_answer": "MetaGPT had the lowest contributor density ratio at 3.9 contributors per 1,000 stars."
+    },
+    {
+        "id": 10,
+        "question": "What was the exact average response time, in hours, for maintainers to review and merge a first-time contributor's pull request in the LangChain repository?",
+        "expected_answer": "This information cannot be determined from the PDF."
+    }
+]

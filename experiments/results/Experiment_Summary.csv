@@ -1,0 +1,4 @@
+Experiment Summary,,,,,,,,,,,,,,
+Chunk Size,PDF_Pages,Total_Chunks,Top_K,Questions_Evaluated,Retrieval_Good,Retrieval_Partial,Retrieval_Poor,Answer_Good,Answer_Partial,Answer_Poor,Retrieval Score,Answer Score,Retrieval Score (%),Answer Score (%)
+500,24,176,3,10,8,2,0,9,1,0,28,29,93.33333333,96.66666667
+1000,24,76,3,10,8,0,2,9,1,0,26,29,86.66666667,96.66666667
