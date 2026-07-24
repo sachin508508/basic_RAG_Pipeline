@@ -1,6 +1,6 @@
-from load_vector_db import vector_load
-from build_vector_db import vector_store
-from config import CHROMA_DB
+from src.load_vector_db import vector_load
+from src.build_vector_db import vector_store
+from src.config import CHROMA_DB
 from pathlib import Path
 
 def retrieve(top_k):
@@ -11,5 +11,5 @@ def retrieve(top_k):
     retrieved_chunks = db.as_retriever(search_kwargs={"k":top_k})
     return retrieved_chunks
 
-def format_chunk(chunks):
+def format_chunk(chunks) -> str:
     return "\n\n".join(chunk.page_content for chunk in chunks)

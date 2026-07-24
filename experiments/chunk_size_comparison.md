@@ -1,163 +1,20 @@
 # Chunk Size Comparison Experiment
 
-## Experiment Objective
+## 1. Objective
 
-The objective of this experiment is to study how different chunk sizes affect the performance of a Retrieval-Augmented Generation (RAG) pipeline.
+This experiment evaluates how different chunk sizes affect retrieval quality and final answer quality in a Retrieval-Augmented Generation (RAG) pipeline.
 
-In this experiment, the chunk size will be changed while keeping the other configuration values constant. The retrieved results will then be evaluated using a fixed set of questions.
-
-The goal is to understand how chunk size affects:
-
-* The number of chunks created from the document
-* The quality and relevance of retrieved chunks
-* The context provided to the language model
-* The final answer quality
+Only `CHUNK_SIZE` was changed between experiments. All other configuration values, evaluation questions, and `TOP_K` remained constant.
 
 ---
 
-## PDF Used
+## 2. Dataset and Fixed Configuration
 
-**Document:** Adoption and Ecosystem Health: A Longitudinal Analysis of Open-Source Multi-Agent Frameworks
-
-**File:** `data_file_RAG.pdf`
-
-**Number of pages:** 24
-**Total chunks created:** 176
-
+**Document:** *Adoption and Ecosystem Health: A Longitudinal Analysis of Open-Source Multi-Agent Frameworks*
+**File:** `data/data_file_RAG.pdf`
+**Pages:** 24
 **Topic:** Open-source AI agent frameworks and ecosystem health
 
-The document analyzes 15 open-source AI agent frameworks using metrics such as GitHub stars, contributors, cross-ecosystem contribution, and contributor retention.
-
----
-
-## Fixed Configuration
-
-The following configuration values remain unchanged throughout the experiment:
-
-| Configuration   | Value                             |
-| --------------- | --------------------------------- |
-| Chunk Overlap   | 200 characters                    |
-| Top K           | 3                                 |
-| Embedding Model | `all-MiniLM-L6-v2`                |
-| LLM             | Gemini                            |
-| Temperature     | 0.4                               |
-| Maximum Tokens  | 1024                              |
-| Text Splitter   | Recursive Character Text Splitter |
-| Document        | `data_file_RAG.pdf`               |
-
-Only the `CHUNK_SIZE` value will be changed between experiments.
-
----
-
-## Evaluation Questions
-
-The same evaluation questions will be used for every future chunk-size experiment to ensure a consistent comparison between different chunking strategies.
-
-### Question 1 — Direct Factual
-
-How many open-source AI agent framework repositories were analyzed in the study?
-
-**Expected answer:** 15 repositories.
-
----
-
-### Question 2 — Direct Factual
-
-What was the total number of unique human code contributors identified across all 15 repositories after filtering out bot accounts?
-
-**Expected answer:** 12,594 unique human code contributors.
-
----
-
-### Question 3 — Definition
-
-What is the contributor density ratio, and how is it calculated?
-
-**Expected answer:** The contributor density ratio is the number of total code contributors per 1,000 GitHub stars. It is calculated as:
-
-`Total Contributors / Total Stars × 1,000`
-
----
-
-### Question 4 — Explanation
-
-Why does the study argue that GitHub star counts alone are not a reliable measure of actual adoption?
-
-**Expected answer:** Star counts primarily measure visibility or awareness and may be affected by hype cycles, launch effects, anomalous activity, or coordinated starring. They do not necessarily represent active engagement or actual code contribution.
-
----
-
-### Question 5 — Information from Different Sections
-
-Which framework had the highest contributor density ratio, and how does this relate to the framework's position in the awareness-versus-adoption analysis?
-
-**Expected answer:** Pydantic AI had the highest contributor density ratio at 42.3 contributors per 1,000 stars. It was classified as a Quiet Compounder, meaning it had relatively lower awareness but comparatively strong contributor engagement.
-
----
-
-### Question 6 — Information from Different Sections
-
-Why is LangChain considered a shared infrastructure or bridge within the open-source AI agent framework ecosystem?
-
-**Expected answer:** LangChain attracted approximately 82.5% of cross-ecosystem contributors and appeared in many cross-framework contributor pairings. Its composable components are also used by or integrated with other frameworks, allowing contributors to engage across multiple ecosystems.
-
----
-
-### Question 7 — Explanation
-
-What does the study reveal about contributor retention during the first 30 to 90 days after a contributor's initial contribution?
-
-**Expected answer:** The steepest decline in contributor retention occurs during the first 30 days. Retention may increase somewhat by 60 or 90 days as contributors have more time to return, but it generally stabilizes after approximately 90 days.
-
----
-
-### Question 8 — Cross-Section Reasoning
-
-AutoGPT had very high visibility but relatively low contributor retention. What does this comparison suggest about the difference between popularity and sustained adoption?
-
-**Expected answer:** High visibility or popularity does not necessarily lead to sustained community engagement. AutoGPT attracted significant attention and stars, but its contributor retention was relatively low, showing that initial popularity and long-term adoption are different measures.
-
----
-
-### Question 9 — Direct Factual
-
-Which framework had the lowest contributor density ratio in the dataset, and what was its ratio?
-
-**Expected answer:** MetaGPT had the lowest contributor density ratio at 3.9 contributors per 1,000 stars.
-
----
-
-### Question 10 — Unanswerable from the PDF
-
-What was the exact average response time, in hours, for maintainers to review and merge a first-time contributor's pull request in the LangChain repository?
-
-**Expected answer:** This information cannot be determined from the PDF.
-
-The PDF discusses factors such as review speed, PR merge rate, and responsiveness as potentially important factors in contributor retention, but it does not provide the exact average response time for LangChain.
-
----
-# Chunk Size Comparison Experiment
-
-## Experiment Objective
-
-The objective of this experiment is to evaluate how different chunk sizes affect retrieval quality and final answer quality in a RAG pipeline.
-
-The same PDF, evaluation questions, chunk overlap, and `TOP_K` value were used in both experiments. Only the chunk size was changed.
-
----
-
-## PDF Used
-
-**Document:** Adoption and Ecosystem Health: A Longitudinal Analysis of Open-Source Multi-Agent Frameworks
-
-**File:** `data/data_file_RAG.pdf`
-
-**Total Pages:** 24
-
----
-
-## Fixed Configuration
-
 | Configuration   | Value                             |
 | --------------- | --------------------------------- |
 | Chunk Overlap   | 200 characters                    |
@@ -165,37 +22,51 @@ The same PDF, evaluation questions, chunk overlap, and `TOP_K` value were used i
 | Embedding Model | `all-MiniLM-L6-v2`                |
 | Text Splitter   | Recursive Character Text Splitter |
 
+### Evaluation Dataset
+
+The same 10 evaluation questions were used for both experiments. The questions cover:
+
+* Direct factual retrieval
+* Definitions
+* Explanations
+* Cross-section reasoning
+* Unanswerable questions
+
+The full evaluation questions are stored in:
+
+`evaluation_questions.json`
+
 ---
 
-## Evaluation Methodology
-
-Each experiment was evaluated using the same 10 questions.
-
-Two separate aspects were evaluated:
+## 3. Evaluation Methodology
 
 ### Retrieval Quality
 
-Retrieval quality measures whether the retrieved chunks contained the information necessary to answer the question.
+Measures whether the retrieved chunks contain enough relevant information to answer the question.
 
-| Score | Meaning |
-|---|---|
-| Good | The retrieved chunks contained sufficient relevant information to answer the question. |
-| Partial | The retrieved chunks contained some relevant information, but important information was missing or incomplete. |
-| Poor | The retrieved chunks did not contain the information necessary to answer the question. |
+| Score   | Meaning                                                                         |
+| ------- | ------------------------------------------------------------------------------- |
+| Good    | Sufficient relevant information was retrieved.                                  |
+| Partial | Some relevant information was retrieved, but important information was missing. |
+| Poor    | The retrieved context did not contain the required information.                 |
 
 ### Answer Quality
 
-Answer quality measures whether the final answer generated by the LLM was correct and sufficiently complete based on the retrieved context.
+Measures whether the final LLM answer is correct and sufficiently complete based on the retrieved context.
 
-| Score | Meaning |
-|---|---|
-| Good | The answer was correct and sufficiently complete. |
-| Partial | The answer was partially correct or incomplete. |
-| Poor | The answer was incorrect, unsupported, or failed to answer the question. |
+| Score   | Meaning                                                   |
+| ------- | --------------------------------------------------------- |
+| Good    | Correct and sufficiently complete.                        |
+| Partial | Partially correct or incomplete.                          |
+| Poor    | Incorrect, unsupported, or failed to answer the question. |
 
-# Experiment A: 500-Character Chunks
+Each experiment was evaluated across 10 questions, resulting in a maximum score of 30 for both retrieval quality and answer quality.
 
-## Configuration
+---
+
+# 4. Experiment A: 500-Character Chunks
+
+### Configuration
 
 ```text
 CHUNK_SIZE = 500
@@ -203,32 +74,32 @@ CHUNK_OVERLAP = 200
 TOP_K = 3
 ```
 
-## Dataset Statistics
+### Dataset Statistics
 
-| Metric                 | Value |
-| ---------------------- | ----- |
-| Total Pages            | 24    |
-| Total Chunks           | 176   |
+| Metric       | Value |
+| ------------ | ----: |
+| Total Pages  |    24 |
+| Total Chunks |   176 |
 
-## Results
+### Results
 
-| Metric                      | Result           |
-| --------------------------- | ---------------- |
-| Retrieved Context Relevance | 28 / 30 (93.33%)    |
+| Metric                      |           Result |
+| --------------------------- | ---------------: |
+| Retrieved Context Relevance | 28 / 30 (93.33%) |
 | Final Answer Quality        | 29 / 30 (96.67%) |
 
 ### Observations
 
-* Most questions retrieved relevant context.
-* Questions requiring information from multiple sections were occasionally incomplete.
+* Retrieved context was generally focused and relevant.
+* Most questions received sufficient context.
+* Some questions requiring information from multiple sections were occasionally incomplete.
 * The unanswerable question was correctly handled.
-* The retrieved context was generally focused and relevant.
 
 ---
 
-# Experiment B: 1000-Character Chunks
+# 5. Experiment B: 1000-Character Chunks
 
-## Configuration
+### Configuration
 
 ```text
 CHUNK_SIZE = 1000
@@ -236,57 +107,69 @@ CHUNK_OVERLAP = 200
 TOP_K = 3
 ```
 
-## Dataset Statistics
+### Dataset Statistics
 
-| Metric                 | Value |
-| ---------------------- | ----- |
-| Total Pages            | 24    |
-| Total Chunks           | 76    |
-
-## Results
-
-| Metric                      | Result           |
-| --------------------------- | ---------------- |
-| Retrieved Context Relevance | 26 / 30 (86.67%) |
-| Final Answer Quality        | 29 / 30 (96.67%) |
-
-## Experiment Results
-
-The experiment evaluated the RAG pipeline using two chunk sizes:
-
-- **Chunk size: 500** → 176 chunks
-- **Chunk size: 1000** → 76 chunks
-
-The evaluation included 10 questions for each configuration. Both retrieval quality and final answer quality were reviewed.
+| Metric       | Value |
+| ------------ | ----: |
+| Total Pages  |    24 |
+| Total Chunks |    76 |
 
 ### Results
 
-- 📋 [Experiment Overview](./results/Experiment_Overview.csv)
-- 📊 [Experiment Summary](./results/Experiment_Summary.csv)
-- 🔍 [Detailed Evaluation Results](./results/Detailed_Evaluation.csv)
+| Metric                      |           Result |
+| --------------------------- | ---------------: |
+| Retrieved Context Relevance | 26 / 30 (86.67%) |
+| Final Answer Quality        | 29 / 30 (96.67%) |
+
 ### Observations
 
 * The larger chunk size significantly reduced the total number of chunks.
 * Retrieval relevance was lower than with 500-character chunks.
-* Final answer quality remained the same.
-* Some questions requiring information from different sections had insufficient retrieved context.
+* Final answer quality remained unchanged.
+* Some questions requiring information from multiple sections had insufficient retrieved context.
 
 ---
 
-## Experiment Comparison
+# 6. Experiment Comparison
 
 | Metric                      | 500-Character Chunks | 1000-Character Chunks |
 | --------------------------- | -------------------: | --------------------: |
 | Total Chunks                |                  176 |                    76 |
-| Retrieved Context Relevance |               93.33% |                86.67% |
-| Final Answer Quality        |               96.67% |                96.67% |
+| Retrieved Context Relevance |           **93.33%** |                86.67% |
+| Final Answer Quality        |           **96.67%** |            **96.67%** |
+
+### Result Files
+
+* [Experiment Overview](./results/Experiment_Overview.csv)
+* [Experiment Summary](./results/Experiment_Summary.csv)
+* [Detailed Evaluation Results](./results/Detailed_Evaluation.csv)
 
 ---
 
-## Conclusion
+## 7. Conclusion
 
-In this experiment, the 500-character chunk size performed better in terms of retrieved context relevance, achieving 93.33% compared to 86.67% for 1000-character chunks. However, both chunk sizes achieved the same final answer quality of 96.67%.
+For this document and evaluation setup, **500-character chunks performed better for retrieval**, achieving **93.33%** compared with **86.67%** for 1000-character chunks.
 
-This suggests that smaller chunks provided more focused retrieval, while larger chunks reduced the number of stored chunks without improving final answer quality. Therefore, for this specific PDF and evaluation setup, the 500-character chunk size produced better retrieval results, although the difference in retrieval quality did not affect the final answer quality.
+However, both configurations achieved the same **96.67% final answer quality**.
 
-Further experiments with different chunk sizes, overlap values, and `TOP_K` values are required before determining the optimal configuration for the RAG pipeline.
+This suggests that smaller chunks provided more focused retrieval, while larger chunks significantly reduced the number of stored chunks without improving final answer quality. Therefore, the 500-character configuration was the better choice for retrieval quality in this experiment.
+
+However, further experiments with different chunk sizes, overlap values, and `TOP_K` values are required before determining the optimal configuration for the RAG pipeline.
+
+---
+
+## 8. Reproducibility
+
+The evaluation workflow:
+
+1. Loads the fixed questions from `evaluation_questions.json`.
+2. Retrieves relevant chunks for each question.
+3. Generates an answer using the RAG pipeline.
+4. Compares the retrieved context and generated answer with the expected answer.
+5. Stores the evaluation results.
+
+The evaluation script is:
+
+`evaluate_rag.py`
+
+This workflow allows the same evaluation questions to be reused for future RAG configuration experiments.

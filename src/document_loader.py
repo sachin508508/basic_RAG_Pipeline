@@ -1,7 +1,7 @@
-from config import FILE_PATH
+from src.config import FILE_PATH
 from pathlib import Path
 from langchain_community.document_loaders import PyPDFLoader
-from exceptions import MissingPDFFileException
+from src.exceptions import MissingPDFFileException
 
 def load_the_pdf():
     file_path = Path(FILE_PATH)

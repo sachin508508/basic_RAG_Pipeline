@@ -1,5 +1,5 @@
-from rag_pipeline import rag_chain
-from exceptions import MissingAPIKeyException, MissingPDFFileException
+from src.rag_pipeline import rag_chain
+from src.exceptions import MissingAPIKeyException, MissingPDFFileException
 
 print("""============================================================
 📚 Welcome to the Basic RAG Pipeline

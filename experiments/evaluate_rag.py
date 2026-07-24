@@ -1,18 +1,16 @@
 import json
-from src.rag_pipeline import rag_chain
+from src.rag_pipeline import rag_chain_with_context
 from langchain_core.output_parsers import StrOutputParser
 
-chain = rag_chain() | StrOutputParser()
-
-
 with open('./experiments/evaluation_questions.json', 'r') as doc:
-    data = json.load(doc)
+    data: dict = json.load(doc)
 
 for query in data:
-    print(f"Loading query {query['id']} out of 10.")
-    response = chain.invoke(query['question'])
-    query['response'] = response
+    print(f"Evaluating question {query['id']} out of {len(data)}.")
+    result = rag_chain_with_context(query['question'])
+    query['context'] = result['context']
+    query['response'] = result['response']
 
-with open('./experiments/response.json', 'w') as doc:
+with open('./experiments/evaluation_results.json', 'w') as doc:
     json.dump(data, doc, indent=4)
     print("All the outputs has been stored for evaluation in 'response.json' file.")

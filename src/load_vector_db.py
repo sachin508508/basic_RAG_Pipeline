@@ -1,6 +1,6 @@
 from langchain_chroma import Chroma
-from config import CHROMA_DB
-from embeddings import get_embedding_model
+from src.config import CHROMA_DB
+from src.embeddings import get_embedding_model
 
 def vector_load():
     return Chroma(
