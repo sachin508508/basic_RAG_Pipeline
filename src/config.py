@@ -6,7 +6,7 @@ load_dotenv()
 """All the configurations are mentioned here!"""
 
 CHROMA_DB="./chroma_db/"
-FILE_PATH="./data/data_file.pdf"
+FILE_PATH="./data/data_file_rag.pdf"
 CHUNK_SIZE=1000
 CHUNK_OVERLAP=200
 gemini_model="gemini-3.1-flash-lite"
