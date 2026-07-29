@@ -22,7 +22,4 @@ def keyword_search(query, top_k=TOP_K):
     ranked_chunks = sorted(ranked_chunks, key=lambda x:x['score'], reverse=True)
     selected_chunks = ranked_chunks[:top_k] 
     selected_chunk = list(chunk['chunk'] for chunk in selected_chunks)
-    print(selected_chunk)
     return selected_chunk
-
-keyword_search(query="contributor density ratio")    
