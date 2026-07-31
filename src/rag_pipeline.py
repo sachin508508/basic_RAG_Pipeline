@@ -12,7 +12,9 @@ def rag_chain(top_k=TOP_K, temperature=TEMPERATURE):
     if search_type == 1:
         return ({"context": retrieve(top_k) | format_chunk, "query":RunnablePassthrough()} | get_message() | llm_object(temperature))
     elif search_type == 2:
-        return ({"context": hybrid(top_k) | format_chunk, "query":RunnablePassthrough()} | get_message() | llm_object(temperature))    
+        return ({"context": hybrid(top_k) , "query":RunnablePassthrough()} | get_message() | llm_object(temperature)) 
+    else:
+        print("Invalid option.")   
 
 def rag_chain_with_context(query: str, top_k=TOP_K, temperature=TEMPERATURE):
     context_chain = retrieve(top_k) | format_chunk
